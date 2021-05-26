@@ -27,7 +27,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './index.hbs',
-      title: 'YMaps'
+      title: 'VK Friends'
     }),
     new MiniCssExtractPlugin({
       filename: '[name]_[contenthash].css'

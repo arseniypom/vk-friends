@@ -4,9 +4,18 @@
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>VK Friends</title>
+   {{!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.js"> --}}
+   </script>
+   <script src="https://vk.com/js/api/openapi.js?168" type="text/javascript"></script>
+   <title>{{htmlWebpackPlugin.options.title}}</title>
  </head>
  <body>
-   <main class="container"></main>
+    <main class="container">
+      <h1 id="headerInfo"></h1>
+      <div id="results"></div>
+    </main>
+    <script id="user-template" type="text/x-handlebars-template">
+      {{> "./templates/friends.hbs"}}
+    </script>
  </body>
  </html>
