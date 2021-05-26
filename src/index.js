@@ -2,7 +2,7 @@ import './styles/index.css';
 import FriendsTemplate from "./templates/friends.hbs";
 
 VK.init({
-  apiId: 7863986
+  apiId: process.env.API_ID
 });
 
 function auth() {

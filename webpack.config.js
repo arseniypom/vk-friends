@@ -1,6 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const Dotenv = require('dotenv-webpack');
 let rules = require('./webpack.config.rules')();
 const path = require('path');
 
@@ -33,5 +34,6 @@ module.exports = {
       filename: '[name]_[contenthash].css'
     }),
     new CleanWebpackPlugin(),
+    new Dotenv(),
   ],
 }
