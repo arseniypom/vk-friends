@@ -19,30 +19,43 @@ export default class Friends {
     })
   }
 
-  async get(me) {
-    const pageHeader = document.querySelector('#header');
-    pageHeader.textContent = `Друзья  ${me.first_name} ${me.last_name}`;
-
-    const friends = await this.callApi('friends.get', {fields: 'city, country, photo_100'});
-    this.set(friends);
-    return friends;
+  async get() {
+    return await JSON.parse(this.storage.getItem('friends-list')) || await this.callApi('friends.get', {fields: 'photo_100'});
   }
 
   set(friends) {
     this.storage.setItem('friends-list', JSON.stringify(friends));
   }
 
-  display(friends) {
+  async display() {
+    const friends = await this.get();
     const friendsList = document.querySelector('[data-role=friends-list]');
     friendsList.innerHTML = FriendsTemplate(friends);
   }
 
-  add() {
-
+  async add([friend]) {
+    const friends = await this.get();
+    const newFriends = {
+      count: ++friends.count,
+      items: [
+        friend,
+        ...friends.items
+      ]
+    }
+    this.set(newFriends);
+    this.display();
   }
 
-  remove() {
-
+  async remove(friendId) {
+    const friendsList = await this.get();
+    const removedFriend = friendsList.items.filter((friend) => friend.id.toString() === friendId);
+    const newFriendsItems = friendsList.items.filter((friend) => friend.id.toString() !== friendId);
+    this.set({
+      count: --friendsList.count,
+      items: newFriendsItems
+    });
+    this.display();
+    return removedFriend;
   }
 
   filter() {

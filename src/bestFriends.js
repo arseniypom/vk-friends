@@ -1,14 +1,51 @@
+import BestFriendsTemplate from "./templates/best-friends.hbs";
+
 export default class BestFriends {
   constructor() {
-
+    this.storage = window.localStorage;
   }
 
-  add() {
-
+  async get() {
+    return await JSON.parse(this.storage.getItem('best-friends-list')) || {count: 0, items: []};
   }
 
-  remove() {
+  async set(bestFriends) {
+    await this.storage.setItem('best-friends-list', JSON.stringify(bestFriends));
+  }
 
+
+  async display() {
+    const bestFriends = await this.get();
+    const bestFriendsList = document.querySelector('[data-role=best-friends-list]');
+    bestFriendsList.innerHTML = BestFriendsTemplate(bestFriends);
+  }
+
+  async add([friend]) {
+    const bestFriends = await this.get();
+    const newBestFriends = {
+      count: ++bestFriends.count,
+      items: [
+        friend,
+        ...bestFriends.items
+      ]
+    }
+    await this.set(newBestFriends);
+    this.display();
+  }
+
+  async remove(friendId) {
+    const bestFriends = await this.get();
+    const removedFriend = bestFriends.items.filter((friend) => friend.id.toString() === friendId);
+    const newFriendsItems = bestFriends.items.filter((friend) => friend.id.toString() !== friendId);
+
+    const newBestFriends = {
+      count: --bestFriends.count,
+      items: newFriendsItems
+    }
+
+    await this.set(newBestFriends);
+    this.display();
+    return removedFriend;
   }
 
   filter() {

@@ -17,7 +17,20 @@ export default class FriendsApp {
       apiId: this.appId
     });
 
-    this.getFriends();
+    this.auth()
+      .then(() => {
+        return this.ui.friends.callApi('users.get', {name_case: 'gen'});
+      })
+      .then(([me]) => {
+        const pageHeader = document.querySelector('#header');
+        pageHeader.textContent = `Друзья  ${me.first_name} ${me.last_name}`;
+        return this.ui.friends.get();
+      })
+      .then(friends => this.ui.friends.display(friends))
+    
+    this.ui.bestFriends.display();
+
+    this.addEventListeners();
   }
 
   auth() {
@@ -32,12 +45,25 @@ export default class FriendsApp {
     });
   }
 
-  getFriends() {
-    this.auth()
-      .then(() => {
-        return this.ui.friends.callApi('users.get', {name_case: 'gen'});
-      })
-      .then(([me]) => this.ui.friends.get(me))
-      .then(friends => this.ui.friends.display(friends));
+  addEventListeners() {
+    const contentDiv = document.querySelector('#content');
+
+    contentDiv.addEventListener('click', async (e) => {
+      if (e.target.dataset.role === 'add-to-best-friends') {
+        try {
+          const res = await this.ui.friends.remove(e.target.dataset.userid);
+          this.ui.bestFriends.add(res);
+        } catch (error) {
+          console.log(error);
+        }
+      } else if (e.target.dataset.role === 'remove-from-best-friends') {
+        try {
+          const res = await this.ui.bestFriends.remove(e.target.dataset.userid);
+          this.ui.bestFriends.add(res);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    });
   }
 }
