@@ -1,8 +1,11 @@
 <div class="friends">
     {{#each items}}
     <div class="friend">
-        <img src="{{photo_100}}"/>
-        <div>{{first_name}} {{last_name}}</div>
+        <div class="friend-info">
+            <img src="{{photo_100}}"/>
+            <div class="friend-name">{{first_name}} {{last_name}}</div>
+        </div>
+        <button class="friend-button" data-role="add-to-best-friends">Переместить</button>
     </div>
     {{/each}}
 </div>

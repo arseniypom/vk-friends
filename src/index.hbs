@@ -11,8 +11,17 @@
  </head>
  <body>
     <main class="container">
-      <h1 id="headerInfo"></h1>
-      <div id="results"></div>
+      <h1 id="header" class="main-header"></h1>
+      <div class="content">
+        <section class="left-column">
+          <h3 id="friends-header"></h3>
+          <div id="friends-list" data-role="friends-list"></div>
+        </section>
+        <section class="right-column">
+          <h3 id="best-friends-header"></h3>
+          <div id="best-friends-list" data-role="best-friends-list"></div>
+        </section>
+      </div>
     </main>
     <script id="user-template" type="text/x-handlebars-template">
       {{> "./templates/friends.hbs"}}
