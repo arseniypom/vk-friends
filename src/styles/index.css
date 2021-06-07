@@ -17,7 +17,7 @@ body {
 
 .main-header {
   margin: 0;
-  padding: 1rem 2rem;
+  padding: 1rem;
   background-color: #FE8663;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -36,19 +36,42 @@ body {
   border-right: 1px solid #F0F0F0;
 }
 
-.right-column {
-  background-color: ivory;
-}
-
 .friends {
   display: flex;
   flex-direction: column;
 }
 
+.friends-header {
+  padding: 1rem;
+  color: #FE8663;
+}
+
+.friends-header h3 {
+  margin: 0;
+}
+
+.friends-filter {
+  background-color: #F0F0F0;
+  padding: 1rem;
+}
+
+.friends-filter input {
+  width: 100%;
+  box-sizing: border-box;
+  background: #FFFFFF;
+  border-radius: 40px;
+  border: 0;
+  padding: .375rem 1rem;
+  font-size: 14px;
+  line-height: 14px;
+  color: #9F9F9F;
+  outline: none;
+}
+
 .friend {
   max-width: 100%;
   padding: .5rem 0;
-  margin: 0 1rem ;
+  margin: 0 1rem;
   display: flex;
   align-items: center;
   justify-content: space-between;

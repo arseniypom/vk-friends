@@ -23,12 +23,10 @@ export default class FriendsApp {
       })
       .then(([me]) => {
         const pageHeader = document.querySelector('#header');
-        pageHeader.textContent = `Друзья  ${me.first_name} ${me.last_name}`;
-        return this.ui.friends.get();
+        pageHeader.textContent = `Список друзей ${me.first_name} ${me.last_name}`;
       })
-      .then(friends => this.ui.friends.display(friends))
-    
-    this.ui.bestFriends.display();
+      .then(() => this.ui.friends.display())
+      .then(() => this.ui.bestFriends.display())
 
     this.addEventListeners();
   }
@@ -59,7 +57,7 @@ export default class FriendsApp {
       } else if (e.target.dataset.role === 'remove-from-best-friends') {
         try {
           const res = await this.ui.bestFriends.remove(e.target.dataset.userid);
-          this.ui.bestFriends.add(res);
+          this.ui.friends.add(res);
         } catch (error) {
           console.log(error);
         }

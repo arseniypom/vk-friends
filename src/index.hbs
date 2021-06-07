@@ -14,11 +14,21 @@
       <h1 id="header" class="main-header"></h1>
       <div class="content">
         <section class="left-column" id="friends-section">
-          <h3 id="friends-header"></h3>
+          <div class="friends-filter">
+            <input type="text" data-role="friends-filter" placeholder="Начните вводить имя друга">
+          </div>
+          <div class="friends-header">
+            <h3 data-role="friends-header">Друзья и знакомые</h3>
+          </div>
           <div id="friends-list" data-role="friends-list"></div>
         </section>
         <section class="right-column" id="best-friends-section">
-          <h3 id="best-friends-header"></h3>
+          <div class="friends-filter">
+            <input type="text" data-role="best-friends-filter" placeholder="Начните вводить имя друга">
+          </div>
+          <div class="friends-header">
+            <h3 data-role="best-friends-header">Лучшие друзья</h3>
+          </div>
           <div id="best-friends-list" data-role="best-friends-list"></div>
         </section>
       </div>
