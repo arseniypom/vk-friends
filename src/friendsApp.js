@@ -63,5 +63,15 @@ export default class FriendsApp {
         }
       }
     });
+
+    const friendsFilterInput = document.querySelector('[data-role=friends-filter]');
+    const bestFriendsFilterInput = document.querySelector('[data-role=best-friends-filter]');
+
+    friendsFilterInput.addEventListener('input', () => {
+      this.ui.friends.filter(friendsFilterInput.value);
+    });
+    bestFriendsFilterInput.addEventListener('input', () => {
+      this.ui.bestFriends.filter(bestFriendsFilterInput.value);
+    });
   }
 }

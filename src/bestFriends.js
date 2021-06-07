@@ -14,8 +14,8 @@ export default class BestFriends {
   }
 
 
-  async display() {
-    const bestFriends = await this.get();
+  async display(bestFriends) {
+    bestFriends ||= await this.get();
     const bestFriendsList = document.querySelector('[data-role=best-friends-list]');
     bestFriendsList.innerHTML = BestFriendsTemplate(bestFriends);
   }
@@ -48,7 +48,16 @@ export default class BestFriends {
     return removedFriend;
   }
 
-  filter() {
-    
+  #bestFriendCheck(word, chunk) {
+    return word.toLowerCase().includes(chunk.toLowerCase())
+  }
+
+  async filter(chunk) {
+    const bestFriends = await this.get();
+    const matchFriends = {};
+    matchFriends.items = bestFriends.items.filter(friend => {
+      return this.#bestFriendCheck(`${friend.first_name} ${friend.last_name}`, chunk);
+    });
+    this.display(matchFriends);
   }
 }

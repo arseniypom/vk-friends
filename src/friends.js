@@ -27,8 +27,8 @@ export default class Friends {
     this.storage.setItem('friends-list', JSON.stringify(friends));
   }
 
-  async display() {
-    const friends = await this.get();
+  async display(friends) {
+    friends ||= await this.get();
     const friendsList = document.querySelector('[data-role=friends-list]');
     friendsList.innerHTML = FriendsTemplate(friends);
   }
@@ -58,7 +58,16 @@ export default class Friends {
     return removedFriend;
   }
 
-  filter() {
-    
+  #friendCheck(word, chunk) {
+    return word.toLowerCase().includes(chunk.toLowerCase())
+  }
+
+  async filter(chunk) {
+    const friends = await this.get();
+    const matchFriends = {};
+    matchFriends.items = friends.items.filter(friend => {
+      return this.#friendCheck(`${friend.first_name} ${friend.last_name}`, chunk);
+    });
+    this.display(matchFriends);
   }
 }
